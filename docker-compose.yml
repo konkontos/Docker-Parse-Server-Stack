@@ -9,74 +9,35 @@ services:
 
     database:
         restart: always
-        container_name: symfony-database
+        container_name: parse-mongo
+        image: mongo
+        ports:
+            - "27017:27017"
+        environment:
+            - MONGO_INITDB_ROOT_USERNAME
+            - MONGO_INITDB_ROOT_PASSWORD
+            - MONGO_INITDB_DATABASE
         networks:
             - app_network
-        image: mariadb
-        environment:
-            - MYSQL_DATABASE=${SYMFONY_MYSQL_DATABASE:-symfony}
-            - MYSQL_ROOT_PASSWORD=${SYMFONY_MYSQL_ROOT_PASSWORD:-root}
-            - MYSQL_USER=${SYMFONY_MYSQL_USER:-symfony}
-            - MYSQL_PASSWORD=${SYMFONY_MYSQL_PASSWORD:-passwd}
-            - MYSQL_ALLOW_EMPTY_PASSWORD=${SYMFONY_MYSQL_EMPTY_PASSWORD:-no}
         volumes:
-            - "${SYMFONY_APP_DB_FOLDER:?'Please, specify db folder in .env file.'}:/var/lib/mysql"
+            - "${PARSE_APP_FOLDER:?'Please, specify app folder in .env file.'}/database:/data/db"
+            - "${PARSE_APP_FOLDER:?'Please, specify app folder in .env file.'}/config/database_init:/docker-entrypoint-initdb.d"
 
-    app:
+    parse:
         restart: always
-        image: handmadeapps/symfony
+        image: handmadeapps/parse-server
         build:
             context: .
-            args:
-                - SYMFONY_USE_SSL=off
         depends_on:
             - database
-        container_name: symfony-app
+        container_name: parse-server
         ports:
-            - "${SYMFONY_PORT:-8080}:80"
+            - "1337:1337"
         environment:
-            - SYMFONY=${SYMFONY:-myapp}
-            - SYMFONY_APP_PUBLIC_FOLDER=${SYMFONY_APP_PUBLIC_FOLDER:-web}
+            - PARSE_SERVER_APPLICATION_ID=${PARSE_SERVER_APPLICATION_ID:?'Please, specify parse app id'}
+            - PARSE_SERVER_MASTER_KEY=${PARSE_SERVER_MASTER_KEY:?'Please, specify parse master key'}
+            - PARSE_SERVER_DATABASE_URI=${PARSE_SERVER_DATABASE_URI:?'Please, specify parse app db URI'}
+            - PARSE_SERVER_URL
+
         networks:
             - app_network
-        command: bash -c "cd /var/www/${SYMFONY}; composer install --no-interaction; apache2-foreground"
-        volumes:
-            - "${SYMFONY_APP_PROJECT_FOLDER:?'Please, specify source project folder in .env file.'}:/var/www"
-            - "${SYMFONY_APP_LOG_FOLDER:?'Please, specify logs folder in .env file.'}:/var/log"
-
-    appssl:
-        restart: always
-        image: handmadeapps/symfony
-        build:
-            context: .
-            args:
-                - SYMFONY_USE_SSL=on
-        depends_on:
-            - database
-        container_name: symfony-app
-        ports:
-            - "${SYMFONY_PORT:-8080}:443"
-        environment:
-            - SYMFONY=${SYMFONY:-myapp}
-            - SYMFONY_APP_PUBLIC_FOLDER=${SYMFONY_APP_PUBLIC_FOLDER:-web}
-            - SYMFONY_APACHE_SSL_CERT
-            - SYMFONY_APACHE_SSL_KEY
-        networks:
-            - app_network
-        command: bash -c "cd /var/www/${SYMFONY}; composer install --no-interaction; apache2-foreground"
-        volumes:
-            - "${SYMFONY_APP_PROJECT_FOLDER:?'Please, specify source project folder in .env file.'}:/var/www"
-            - "${SYMFONY_APP_LOG_FOLDER:?'Please, specify logs folder in .env file.'}:/var/log"
-            - "${SYMFONY_APACHE_SSL_FOLDER:?'Please, specify ssl certs folder in .env file.'}:/etc/ssl"
-
-    phpmyadmin:
-        restart: "no"
-        container_name: symfony-phpmyadmin
-        networks:
-            - app_network
-        image: phpmyadmin/phpmyadmin
-        ports:
-            - "${PHPMYADMIN_PORT:-9090}:80"
-        environment:
-            - PMA_HOST=symfony-database
-
