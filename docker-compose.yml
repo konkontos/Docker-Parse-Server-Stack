@@ -38,6 +38,8 @@ services:
             - PARSE_SERVER_MASTER_KEY=${PARSE_SERVER_MASTER_KEY:?'Please, specify parse master key'}
             - PARSE_SERVER_DATABASE_URI=${PARSE_SERVER_DATABASE_URI:?'Please, specify parse app db URI'}
             - PARSE_SERVER_URL
-
+            - SENDGRID_API_KEY
+            - SENDGRID_FROM_ADDRESS
         networks:
             - app_network
+

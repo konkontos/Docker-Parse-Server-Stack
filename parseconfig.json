@@ -1,0 +1,6 @@
+emailAdapter: SimpleSendGridAdapter({
+    apiKey: ${SENDGRID_API_KEY},
+    fromAddress: ${SENDGRID_FROM_ADDRESS},
+})
+
+

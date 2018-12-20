@@ -16,6 +16,7 @@
 		8591E0B4218717CB0088B70C /* stop.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = stop.sh; sourceTree = "<group>"; };
 		8591E0B7218735280088B70C /* sample_create_app_db_user.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = sample_create_app_db_user.js; sourceTree = "<group>"; };
 		8591E0BC21873B8C0088B70C /* Dockerfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Dockerfile; sourceTree = "<group>"; };
+		8591E0BE218878F30088B70C /* parseconfig.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = parseconfig.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -27,6 +28,7 @@
 				8591E0B7218735280088B70C /* sample_create_app_db_user.js */,
 				8591E0BC21873B8C0088B70C /* Dockerfile */,
 				8591E0AD2187178A0088B70C /* docker-compose.yml */,
+				8591E0BE218878F30088B70C /* parseconfig.json */,
 				8591E0B0218717B90088B70C /* apache_base_ssl_on.conf */,
 				8591E0B1218717C00088B70C /* scripts */,
 			);
