@@ -1,0 +1,7 @@
+FROM httpd:latest
+
+LABEL maintainer="kkon@handmadeapps.tech"
+
+COPY ./apache_ssl_dashboard /usr/local/apache2/conf/httpd.conf
+COPY ./.ssl/server.crt /usr/local/apache2/conf/
+COPY ./.ssl/server.key /usr/local/apache2/conf/

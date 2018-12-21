@@ -48,11 +48,10 @@ services:
             - database
             - server
         ports:
-            - "${PARSE_DASHBOARD_PORT}:4040"
+            - "4040:4040"
         networks:
             - app_network
         environment:
-            - PARSE_DASHBOARD_PORT=${PARSE_DASHBOARD_PORT:-8080}
             - PARSE_DASHBOARD_APP_NAME
             - PARSE_DASHBOARD_USER
             - PARSE_DASHBOARD_PASSWORD
@@ -61,5 +60,44 @@ services:
             - PARSE_APP_ID
         volumes:
             - "${PARSE_APP_FOLDER:?'Please, specify app folder in .env file.'}/dashboard:/bitnami"
+
+
+    proxy:
+        restart: always
+        image: handmadeapps/parseproxy
+        build:
+            context: .
+            dockerfile: Dockerfile-httpd
+        depends_on:
+            - server
+        container_name: parse-proxy
+        ports:
+            - "443:443"
+        environment:
+            - PROXY_SERVER_NAME=${PROXY_SERVER_NAME:-localhost}
+        volumes:
+            - "${PARSE_APP_FOLDER:?'Please, specify app folder in .env file.'}/httpd/logs:/logs"
+        networks:
+            - app_network
+
+
+    proxy-dashboard:
+        restart: always
+        image: handmadeapps/parseproxydashboard
+        build:
+            context: .
+            dockerfile: Dockerfile-httpd-dashboard
+        depends_on:
+            - dashboard
+        container_name: parse-proxy-dashboard
+        ports:
+            - "${PARSE_DASHBOARD_PORT}:443"
+        environment:
+            - PROXY_SERVER_NAME=${PROXY_SERVER_NAME:-localhost}
+            - PARSE_DASHBOARD_PORT
+        volumes:
+            - "${PARSE_APP_FOLDER:?'Please, specify app folder in .env file.'}/httpd/logs:/logs"
+        networks:
+            - app_network
 
 

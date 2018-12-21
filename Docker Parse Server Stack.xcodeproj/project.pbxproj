@@ -10,13 +10,14 @@
 		8591E0AC218717670088B70C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		8591E0AD2187178A0088B70C /* docker-compose.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = "docker-compose.yml"; sourceTree = "<group>"; };
 		8591E0AE2187178A0088B70C /* sample.env */ = {isa = PBXFileReference; lastKnownFileType = text; path = sample.env; sourceTree = "<group>"; };
-		8591E0B0218717B90088B70C /* apache_base_ssl_on.conf */ = {isa = PBXFileReference; lastKnownFileType = text; path = apache_base_ssl_on.conf; sourceTree = "<group>"; };
+		8591E0B0218717B90088B70C /* apache_ssl.conf */ = {isa = PBXFileReference; lastKnownFileType = text; path = apache_ssl.conf; sourceTree = "<group>"; };
 		8591E0B2218717CB0088B70C /* start.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = start.sh; sourceTree = "<group>"; };
 		8591E0B3218717CB0088B70C /* enter_app_container.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = enter_app_container.sh; sourceTree = "<group>"; };
 		8591E0B4218717CB0088B70C /* stop.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = stop.sh; sourceTree = "<group>"; };
-		8591E0B7218735280088B70C /* sample_create_app_db_user.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = sample_create_app_db_user.js; sourceTree = "<group>"; };
-		8591E0BC21873B8C0088B70C /* Dockerfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Dockerfile; sourceTree = "<group>"; };
-		8591E0BE218878F30088B70C /* parseconfig.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = parseconfig.json; sourceTree = "<group>"; };
+		8591E0BC21873B8C0088B70C /* Dockerfile-httpd */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Dockerfile-httpd"; sourceTree = "<group>"; };
+		85EB4E2821CCE7910060DDF5 /* sample-mailgun-config.javascript */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = "sample-mailgun-config.javascript"; sourceTree = "<group>"; };
+		85EB4E2921CD0CCE0060DDF5 /* Dockerfile-httpd-dashboard */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Dockerfile-httpd-dashboard"; sourceTree = "<group>"; };
+		85EB4E2A21CD0CE10060DDF5 /* apache_ssl_dashboard */ = {isa = PBXFileReference; lastKnownFileType = text; path = apache_ssl_dashboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -25,11 +26,12 @@
 			children = (
 				8591E0AC218717670088B70C /* README.md */,
 				8591E0AE2187178A0088B70C /* sample.env */,
-				8591E0B7218735280088B70C /* sample_create_app_db_user.js */,
-				8591E0BC21873B8C0088B70C /* Dockerfile */,
+				85EB4E2821CCE7910060DDF5 /* sample-mailgun-config.javascript */,
+				8591E0BC21873B8C0088B70C /* Dockerfile-httpd */,
+				85EB4E2921CD0CCE0060DDF5 /* Dockerfile-httpd-dashboard */,
 				8591E0AD2187178A0088B70C /* docker-compose.yml */,
-				8591E0BE218878F30088B70C /* parseconfig.json */,
-				8591E0B0218717B90088B70C /* apache_base_ssl_on.conf */,
+				8591E0B0218717B90088B70C /* apache_ssl.conf */,
+				85EB4E2A21CD0CE10060DDF5 /* apache_ssl_dashboard */,
 				8591E0B1218717C00088B70C /* scripts */,
 			);
 			sourceTree = "<group>";
