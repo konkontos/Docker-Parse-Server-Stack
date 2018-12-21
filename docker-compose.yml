@@ -10,36 +10,56 @@ services:
     database:
         restart: always
         container_name: parse-mongo
-        image: mongo
+        image: bitnami/mongodb:latest
         ports:
             - "27017:27017"
-        environment:
-            - MONGO_INITDB_ROOT_USERNAME
-            - MONGO_INITDB_ROOT_PASSWORD
-            - MONGO_INITDB_DATABASE
         networks:
             - app_network
         volumes:
-            - "${PARSE_APP_FOLDER:?'Please, specify app folder in .env file.'}/database:/data/db"
-            - "${PARSE_APP_FOLDER:?'Please, specify app folder in .env file.'}/config/database_init:/docker-entrypoint-initdb.d"
+            - "${PARSE_APP_FOLDER:?'Please, specify app folder in .env file.'}/database:/bitnami"
 
-    parse:
+    server:
         restart: always
-        image: handmadeapps/parse-server
-        build:
-            context: .
+        image: bitnami/parse:latest
+#        build:
+#            context: .
         depends_on:
             - database
-        container_name: parse-server
+        container_name: parse
         ports:
-            - "1337:1337"
+            - "${PARSE_PORT_NUMBER}:${PARSE_PORT_NUMBER}"
         environment:
-            - PARSE_SERVER_APPLICATION_ID=${PARSE_SERVER_APPLICATION_ID:?'Please, specify parse app id'}
-            - PARSE_SERVER_MASTER_KEY=${PARSE_SERVER_MASTER_KEY:?'Please, specify parse master key'}
-            - PARSE_SERVER_DATABASE_URI=${PARSE_SERVER_DATABASE_URI:?'Please, specify parse app db URI'}
-            - PARSE_SERVER_URL
-            - SENDGRID_API_KEY
-            - SENDGRID_FROM_ADDRESS
+            - PARSE_APP_FOLDER=${PARSE_APP_FOLDER:?'Please, specify parse app folder'}
+            - PARSE_APP_ID=${PARSE_APP_ID:?'Please, specify parse app id'}
+            - PARSE_MASTER_KEY=${PARSE_MASTER_KEY:?'Please, specify parse master key'}
+            - MONGODB_HOST=${MONGODB_HOST:-parse-mongo}
+            - PARSE_PORT_NUMBER=${PARSE_PORT_NUMBER:-1337}
+            - PARSE_HOST=${PARSE_HOST:-localhost}
+        volumes:
+            - "${PARSE_APP_FOLDER:?'Please, specify app folder in .env file.'}/parse:/bitnami"
         networks:
             - app_network
+
+    dashboard:
+        restart: always
+        container_name: parse-dashboard
+        image: bitnami/parse-dashboard:latest
+        depends_on:
+            - database
+            - server
+        ports:
+            - "${PARSE_DASHBOARD_PORT}:4040"
+        networks:
+            - app_network
+        environment:
+            - PARSE_DASHBOARD_PORT=${PARSE_DASHBOARD_PORT:-8080}
+            - PARSE_DASHBOARD_APP_NAME
+            - PARSE_DASHBOARD_USER
+            - PARSE_DASHBOARD_PASSWORD
+            - PARSE_HOST
+            - PARSE_MASTER_KEY
+            - PARSE_APP_ID
+        volumes:
+            - "${PARSE_APP_FOLDER:?'Please, specify app folder in .env file.'}/dashboard:/bitnami"
+
 
