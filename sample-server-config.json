@@ -1,7 +1,9 @@
 {
     "appId": "parseapp",
     "masterKey": "12345678",
-    "readOnlyMasterKey": "12345678",
+    "readOnlyMasterKey": "abcdef",
+    "clientKey": "ter4542yyrt",
+    "restAPIKey": "6847586htj",
     "appName": "parse-server",
     "mountPath": "/parse",
     "port": "1337",
