@@ -28,3 +28,6 @@ curl -X GET \
 -k \
 https://[hostname]/parse/classes/WallPost
 ```
+
+
+### More documentation to be added…
