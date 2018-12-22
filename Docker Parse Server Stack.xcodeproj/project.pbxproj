@@ -17,7 +17,8 @@
 		8591E0BC21873B8C0088B70C /* Dockerfile-httpd */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Dockerfile-httpd"; sourceTree = "<group>"; };
 		85EB4E2921CD0CCE0060DDF5 /* Dockerfile-httpd-dashboard */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Dockerfile-httpd-dashboard"; sourceTree = "<group>"; };
 		85EB4E2A21CD0CE10060DDF5 /* apache_ssl_dashboard */ = {isa = PBXFileReference; lastKnownFileType = text; path = apache_ssl_dashboard; sourceTree = "<group>"; };
-		85EB4E2B21CD1D790060DDF5 /* sample-config.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "sample-config.json"; sourceTree = "<group>"; };
+		85EB4E2B21CD1D790060DDF5 /* sample-server-config.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "sample-server-config.json"; sourceTree = "<group>"; };
+		85EB4E2C21CE1D230060DDF5 /* sample-dashboard-config.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "sample-dashboard-config.json"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -27,7 +28,8 @@
 				8591E0AC218717670088B70C /* README.md */,
 				8591E0AE2187178A0088B70C /* sample.env */,
 				8591E0BC21873B8C0088B70C /* Dockerfile-httpd */,
-				85EB4E2B21CD1D790060DDF5 /* sample-config.json */,
+				85EB4E2B21CD1D790060DDF5 /* sample-server-config.json */,
+				85EB4E2C21CE1D230060DDF5 /* sample-dashboard-config.json */,
 				85EB4E2921CD0CCE0060DDF5 /* Dockerfile-httpd-dashboard */,
 				8591E0AD2187178A0088B70C /* docker-compose.yml */,
 				8591E0B0218717B90088B70C /* apache_ssl.conf */,
