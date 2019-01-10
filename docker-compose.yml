@@ -49,9 +49,9 @@ services:
         restart: always
         container_name: parse-dashboard
         image: bitnami/parse-dashboard:latest
-        depends_on:
-            - database
-            - server
+#        depends_on:
+#            - database
+#            - server
         ports:
             - "4040:4040"
         networks:
