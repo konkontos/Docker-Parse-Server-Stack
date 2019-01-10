@@ -11,6 +11,11 @@ services:
         restart: always
         container_name: parse-mongo
         image: bitnami/mongodb:latest
+        environment:
+            - MONGODB_ROOT_PASSWORD=${MONGODB_ROOT_PASSWORD:?'Please, specify mongodb root password'}
+            - MONGODB_USERNAME=${MONGODB_USERNAME:?'Please, specify mongodb database user'}
+            - MONGODB_PASSWORD=${MONGODB_PASSWORD:?'Please, specify db user password'}
+            - MONGODB_DATABASE=${MONGODB_DATABASE:?'Please, specify application database'}
         ports:
             - "27017:27017"
         networks:
