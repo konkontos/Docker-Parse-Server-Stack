@@ -17,6 +17,7 @@ services:
             - MONGODB_PASSWORD=${MONGODB_PASSWORD:?'Please, specify db user password'}
             - MONGODB_DATABASE=${MONGODB_DATABASE:?'Please, specify application database'}
             - MONGODB_PORT_NUMBER=${PARSE_DB_PORT:-27017}
+            - MONGODB_EXTRA_FLAGS=${MONGODB_EXTRA_FLAGS}
         ports:
             - "${PARSE_DB_PORT:-27017}:${PARSE_DB_PORT:-27017}"
         networks:
