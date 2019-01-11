@@ -9,7 +9,7 @@ services:
 
     database:
         restart: always
-        container_name: parse-mongo
+        container_name: ${CN_DATABASE:-parse-mongo}
         image: bitnami/mongodb:latest
         environment:
             - MONGODB_ROOT_PASSWORD=${MONGODB_ROOT_PASSWORD:?'Please, specify mongodb root password'}
@@ -30,7 +30,7 @@ services:
 #            context: .
         depends_on:
             - database
-        container_name: parse
+        container_name: ${CN_SERVER:-parse}
         ports:
             - "${PARSE_PORT_NUMBER}:${PARSE_PORT_NUMBER}"
         environment:
@@ -47,7 +47,7 @@ services:
 
     dashboard:
         restart: always
-        container_name: parse-dashboard
+        container_name: ${CN_DASHBOARD:-parse-dashboard}
         image: bitnami/parse-dashboard:latest
 #        depends_on:
 #            - database
@@ -75,7 +75,7 @@ services:
             dockerfile: Dockerfile-httpd
         depends_on:
             - server
-        container_name: parse-proxy
+        container_name: ${CN_PROXY:-parse-proxy}
         ports:
             - "${PARSE_PROXY_PORT_NUMBER}:443"
         environment:
@@ -95,7 +95,7 @@ services:
             dockerfile: Dockerfile-httpd-dashboard
         depends_on:
             - dashboard
-        container_name: parse-proxy-dashboard
+        container_name: ${CN_DASHBOARD_PROXY:-parse-proxy-dashboard}
         ports:
             - "${PARSE_DASHBOARD_PORT}:443"
         environment:
