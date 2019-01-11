@@ -17,7 +17,7 @@ services:
             - MONGODB_PASSWORD=${MONGODB_PASSWORD:?'Please, specify db user password'}
             - MONGODB_DATABASE=${MONGODB_DATABASE:?'Please, specify application database'}
         ports:
-            - "27017:27017"
+            - "${PARSE_DB_PORT:-27017}:27017"
         networks:
             - app_network
         volumes:
@@ -32,13 +32,13 @@ services:
             - database
         container_name: ${CN_SERVER:-parse}
         ports:
-            - "${PARSE_PORT_NUMBER}:${PARSE_PORT_NUMBER}"
+            - "${PARSE_PORT:-1337}:${PARSE_PORT:-1337}"
         environment:
             - PARSE_APP_FOLDER=${PARSE_APP_FOLDER:?'Please, specify parse app folder'}
             - PARSE_APP_ID=${PARSE_APP_ID:?'Please, specify parse app id'}
             - PARSE_MASTER_KEY=${PARSE_MASTER_KEY:?'Please, specify parse master key'}
             - MONGODB_HOST=${MONGODB_HOST:-parse-mongo}
-            - PARSE_PORT_NUMBER=${PARSE_PORT_NUMBER:-1337}
+            - PARSE_PORT_NUMBER=${PARSE_PORT:-1337}
             - PARSE_HOST=${PARSE_HOST:-localhost}
         volumes:
             - "${PARSE_APP_FOLDER:?'Please, specify app folder in .env file.'}/parse:/bitnami"
@@ -53,7 +53,7 @@ services:
 #            - database
 #            - server
         ports:
-            - "4040:4040"
+            - "${PARSE_DASHBOARD_PORT:-4040}:4040"
         networks:
             - app_network
         environment:
@@ -77,10 +77,10 @@ services:
             - server
         container_name: ${CN_PROXY:-parse-proxy}
         ports:
-            - "${PARSE_PROXY_PORT_NUMBER}:443"
+            - "${PARSE_PROXY_PORT:-9090}:${PARSE_PROXY_PORT:-9090}"
         environment:
             - PROXY_SERVER_NAME=${PROXY_SERVER_NAME:-localhost}
-            - PARSE_PROXY_PORT_NUMBER=${PARSE_PROXY_PORT_NUMBER:-9090}
+            - PARSE_PROXY_PORT_NUMBER=${PARSE_PROXY_PORT:-9090}
         volumes:
             - "${PARSE_APP_FOLDER:?'Please, specify app folder in .env file.'}/httpd/logs:/logs"
         networks:
@@ -97,10 +97,10 @@ services:
             - dashboard
         container_name: ${CN_DASHBOARD_PROXY:-parse-proxy-dashboard}
         ports:
-            - "${PARSE_DASHBOARD_PORT}:443"
+            - "${PARSE_PROXY_DASHBOARD_PORT:-8080}:${PARSE_PROXY_DASHBOARD_PORT:-8080}"
         environment:
             - PROXY_SERVER_NAME=${PROXY_SERVER_NAME:-localhost}
-            - PARSE_DASHBOARD_PORT=${PARSE_DASHBOARD_PORT:-8080}
+            - PARSE_DASHBOARD_PORT=${PARSE_PROXY_DASHBOARD_PORT:-8080}
         volumes:
             - "${PARSE_APP_FOLDER:?'Please, specify app folder in .env file.'}/httpd/logs:/logs"
         networks:
