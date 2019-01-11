@@ -16,6 +16,7 @@ services:
             - MONGODB_USERNAME=${MONGODB_USERNAME:?'Please, specify mongodb database user'}
             - MONGODB_PASSWORD=${MONGODB_PASSWORD:?'Please, specify db user password'}
             - MONGODB_DATABASE=${MONGODB_DATABASE:?'Please, specify application database'}
+            - MONGODB_PORT_NUMBER=${PARSE_DB_PORT:-27017}
         ports:
             - "${PARSE_DB_PORT:-27017}:${PARSE_DB_PORT:-27017}"
         networks:
@@ -38,6 +39,7 @@ services:
             - PARSE_APP_ID=${PARSE_APP_ID:?'Please, specify parse app id'}
             - PARSE_MASTER_KEY=${PARSE_MASTER_KEY:?'Please, specify parse master key'}
             - MONGODB_HOST=${MONGODB_HOST:-parse-mongo}
+            - MONGODB_PORT_NUMBER=${PARSE_DB_PORT:-27017}
             - PARSE_PORT_NUMBER=${PARSE_PORT:-1337}
             - PARSE_HOST=${PARSE_HOST:-localhost}
         volumes:
@@ -49,9 +51,8 @@ services:
         restart: always
         container_name: ${CN_DASHBOARD:-parse-dashboard}
         image: bitnami/parse-dashboard:latest
-#        depends_on:
-#            - database
-#            - server
+        depends_on:
+            - server
         ports:
             - "${PARSE_DASHBOARD_PORT:-4040}:4040"
         networks:

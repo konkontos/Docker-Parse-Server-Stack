@@ -24,7 +24,7 @@ Based on [Bitnami](https://bitnami.com/stack/parse/containers) images.
 
 `docker-compose up -d dashboard` 
 
-## Start everything
+## Start everything (including proxies)
 
 `docker-compose up -d`
 
